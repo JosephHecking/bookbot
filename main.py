@@ -1,28 +1,29 @@
-book_path = "books/frankenstein.txt"
-with open(book_path) as f:
-    file_text = f.read()
-character_dict = get_character_count()
-character_dict_list = [{"character": key, "value": value} for key, value in character_dict.items()]
 
 #returns the frankenstein text report
 def main(): 
-    num_words = get_word_count()
-    sorted_dict_list = character_dict_list.sort(reverse=True, key=sort_on)
+    book_path = "books/frankenstein.txt"
+    with open(book_path) as f:
+        file_text = f.read()
+    character_dict = get_character_count(file_text)
+    character_dict_list = [{"character": key, "value": value} for key, value in character_dict.items()]
+    num_words = get_word_count(file_text)
+    sorted_dict_list = sorted(character_dict_list, reverse=True, key=sort_on)
+    
     print(f"--- Begin report of {book_path} ---")
     print(f"{num_words} words found in the document")
-    print("")
-    print("")
+
     for list in sorted_dict_list:
-        print(f"The {sorted_dict_list["character"]} character was found {sorted_dict_list["value"]} times")
+        print(f"The {list['character']} character was found {list['value']} times")
+    
     print("--- End report ---")
 
 #returns the word count
-def get_word_count():
-    return len(file_text.split())
+def get_word_count(txt):
+    return len((txt).split())
 
 #returns the number of each character 
-def get_character_count():
-    lowercase_text = file_text.lower()
+def get_character_count(txt):
+    lowercase_text = (txt).lower()
     character_count = {
     "a": 0, "b": 0, "c": 0, "d": 0, "e": 0, "f": 0, "g": 0, "h": 0,
     "i": 0, "j": 0, "k": 0, "l": 0, "m": 0, "n": 0, "o": 0, "p": 0,
