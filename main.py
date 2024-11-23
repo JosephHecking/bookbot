@@ -1,12 +1,20 @@
 book_path = "books/frankenstein.txt"
 with open(book_path) as f:
     file_text = f.read()
+character_dict = get_character_count()
+character_dict_list = [{"character": key, "value": value} for key, value in character_dict.items()]
 
-#returns the frankenstein text
+#returns the frankenstein text report
 def main(): 
     num_words = get_word_count()
-    character_dict = get_character_count()
-    
+    sorted_dict_list = character_dict_list.sort(reverse=True, key=sort_on)
+    print(f"--- Begin report of {book_path} ---")
+    print(f"{num_words} words found in the document")
+    print("")
+    print("")
+    for list in sorted_dict_list:
+        print(f"The {sorted_dict_list["character"]} character was found {sorted_dict_list["value"]} times")
+    print("--- End report ---")
 
 #returns the word count
 def get_word_count():
@@ -25,3 +33,8 @@ def get_character_count():
         if character in character_count:
             character_count[character] += 1
     return character_count
+
+def sort_on(dict):
+    return dict["value"]
+
+main()
